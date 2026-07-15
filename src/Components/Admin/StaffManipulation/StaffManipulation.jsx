@@ -16,7 +16,7 @@ const StaffManipulation = () => {
 	const location = useLocation();
 
 	useEffect(() => {
-		fetch(`https://bismillah-enterprise-server.onrender.com/staff_bonus`)
+		fetch(`https://shop-manager-server.onrender.com/staff_bonus`)
 			.then(res => res.json())
 			.then(data => {
 				const formatTime = (totalMinutes) => {
@@ -48,7 +48,7 @@ const StaffManipulation = () => {
 			confirmButtonText: "Yes, I am Sure"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				fetch(`https://bismillah-enterprise-server.onrender.com/set_user_category/${uid}`, {
+				fetch(`https://shop-manager-server.onrender.com/set_user_category/${uid}`, {
 					method: 'PUT',
 					headers: {
 						'content-type': 'application/json'
@@ -81,7 +81,7 @@ const StaffManipulation = () => {
 			confirmButtonText: "Yes, I am Sure"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				fetch(`https://bismillah-enterprise-server.onrender.com/set_user_status/${uid}`, {
+				fetch(`https://shop-manager-server.onrender.com/set_user_status/${uid}`, {
 					method: 'PUT',
 					headers: {
 						'content-type': 'application/json'
@@ -105,7 +105,7 @@ const StaffManipulation = () => {
 	const hour_rate_ref = useRef();
 	const handleHourRate = () => {
 		const newHourRate = parseFloat(hour_rate_ref.current.value);
-		fetch(`https://bismillah-enterprise-server.onrender.com/hour_rate/${staffId}`, {
+		fetch(`https://shop-manager-server.onrender.com/hour_rate/${staffId}`, {
 			method: 'PUT',
 			headers: {
 				'content-type': 'application/json'
@@ -139,7 +139,7 @@ const StaffManipulation = () => {
 		const bonusStartTime = parseTime(newStartTime);
 		const bonusEndTime = parseTime(newEndTime);
 		console.log(bonusStartTime, bonusEndTime);
-		fetch(`https://bismillah-enterprise-server.onrender.com/set_bonus_time`, {
+		fetch(`https://shop-manager-server.onrender.com/set_bonus_time`, {
 			method: 'PATCH',
 			headers: {
 				'content-type': 'application/json'

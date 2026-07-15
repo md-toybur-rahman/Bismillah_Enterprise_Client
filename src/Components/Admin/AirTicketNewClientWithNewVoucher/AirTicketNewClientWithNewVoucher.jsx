@@ -168,7 +168,7 @@ const AirTicketNewClientWithNewVoucher = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/air_ticket_new_client`, {
+                fetch(`https://shop-manager-server.onrender.com/air_ticket_new_client`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -180,7 +180,7 @@ const AirTicketNewClientWithNewVoucher = () => {
                         clientNameRef.current.value = ''
                         addressRef.current.value = '';
                         phoneNoRef.current.value = '';
-                        fetch(`https://bismillah-enterprise-server.onrender.com/voucher_sl`, {
+                        fetch(`https://shop-manager-server.onrender.com/voucher_sl`, {
                             method: 'POST',
                             headers: { 'content-type': 'application/json' },
                             body: JSON.stringify({ new_sl_no: parseInt(newSlNo) })
@@ -226,7 +226,7 @@ const AirTicketNewClientWithNewVoucher = () => {
     // -------------------------------------------------------
     const [voucherSl, setVoucherSl] = useState();
     useEffect(() => {
-        fetch('https://bismillah-enterprise-server.onrender.com/voucher_sl')
+        fetch('https://shop-manager-server.onrender.com/voucher_sl')
             .then(res => res.json())
             .then(data => {
                 setVoucherSl(data.sl_no)

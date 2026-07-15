@@ -10,7 +10,7 @@ const AdminMain = () => {
 	const [ping, setPing] = useState(false);
 	useEffect(() => {
 		setLoading(true);
-		fetch('https://bismillah-enterprise-server.onrender.com/shop_code')
+		fetch('https://shop-manager-server.onrender.com/shop_code')
 			.then(res => res.json())
 			.then(() => {
 				setLoading(false);

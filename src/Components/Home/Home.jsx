@@ -29,14 +29,14 @@ const Home = () => {
 	});
 	const today_only_date_number = parseInt(currentDate.split(' ')[1].split(',')[0]);
 	useEffect(() => {
-		fetch(`https://bismillah-enterprise-server.onrender.com/`)
+		fetch(`https://shop-manager-server.onrender.com/`)
 	})
 	useEffect(() => {
-		fetch(`https://bismillah-enterprise-server.onrender.com/staff_bonus`)
+		fetch(`https://shop-manager-server.onrender.com/staff_bonus`)
 			.then(bonusRes => bonusRes.json())
 			.then(bonusData => {
 				if (bonusData.date !== currentDate) {
-					fetch(`https://bismillah-enterprise-server.onrender.com/staff_bonus`, {
+					fetch(`https://shop-manager-server.onrender.com/staff_bonus`, {
 						method: 'PUT',
 						headers: { 'content-type': 'application/json' },
 						body: JSON.stringify({ entry_type: 'new day', date: currentDate }),
@@ -53,7 +53,7 @@ const Home = () => {
 		const todayFullDate = new Date();
 		const todayOnlyDate = todayFullDate.toLocaleDateString('en-BD', { day: 'numeric' });
 		const todayOnlyDateIntFormat = parseInt(todayOnlyDate);
-		fetch(`https://bismillah-enterprise-server.onrender.com/staff/uid_query/${user?.uid}`)
+		fetch(`https://shop-manager-server.onrender.com/staff/uid_query/${user?.uid}`)
 			.then(res => res.json())
 			.then(data => {
 				setLoadedUser(data);
@@ -80,7 +80,7 @@ const Home = () => {
 						today_date: todayOnlyDateIntFormat
 					};
 					// Save to database
-					fetch(`https://bismillah-enterprise-server.onrender.com/submit_work_time/${_id}`, {
+					fetch(`https://shop-manager-server.onrender.com/submit_work_time/${_id}`, {
 						method: 'PUT',
 						headers: {
 							'content-type': 'application/json'

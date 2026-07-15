@@ -76,7 +76,7 @@ const CreateNewClientWithVoucher = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/new_client`, {
+                fetch(`https://shop-manager-server.onrender.com/new_client`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -89,7 +89,7 @@ const CreateNewClientWithVoucher = () => {
                         onBehalfRef.current.value = '';
                         addressRef.current.value = '';
                         phoneNoRef.current.value = '';
-                        fetch(`https://bismillah-enterprise-server.onrender.com/voucher_sl`, {
+                        fetch(`https://shop-manager-server.onrender.com/voucher_sl`, {
                             method: 'POST',
                             headers: { 'content-type': 'application/json' },
                             body: JSON.stringify({ new_sl_no: parseInt(newSlNo) })
@@ -131,7 +131,7 @@ const CreateNewClientWithVoucher = () => {
     // -------------------------------------------------------
     const [voucherSl, setVoucherSl] = useState();
     useEffect(() => {
-        fetch('https://bismillah-enterprise-server.onrender.com/voucher_sl')
+        fetch('https://shop-manager-server.onrender.com/voucher_sl')
             .then(res => res.json())
             .then(data => {
                 setVoucherSl(data.sl_no)
@@ -291,7 +291,7 @@ const CreateNewClientWithVoucher = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/new_voucher/${client._id}`, {
+                fetch(`https://shop-manager-server.onrender.com/new_voucher/${client._id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(voucher)
@@ -309,7 +309,7 @@ const CreateNewClientWithVoucher = () => {
                                     voucher_no: `${voucherSl + 1}`,
                                     discount: discountAmount
                                 }
-                                fetch(`https://bismillah-enterprise-server.onrender.com/take_payment/${client._id}`, {
+                                fetch(`https://shop-manager-server.onrender.com/take_payment/${client._id}`, {
                                     method: 'PUT',
                                     headers: {
                                         'content-type': 'application/json'
@@ -331,7 +331,7 @@ const CreateNewClientWithVoucher = () => {
                                     })
                                 // ----------------------------
                             }
-                            fetch(`https://bismillah-enterprise-server.onrender.com/voucher_sl`, {
+                            fetch(`https://shop-manager-server.onrender.com/voucher_sl`, {
                                 method: 'POST',
                                 headers: { 'content-type': 'application/json' },
                                 body: JSON.stringify({ new_sl_no: newSlNo })

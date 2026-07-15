@@ -67,7 +67,7 @@ const StaffsMonthlyRecords = () => {
 			confirmButtonText: "Yes, Submit"
 		}).then(async (result) => {
 			if (result.isConfirmed) {
-				fetch(`https://bismillah-enterprise-server.onrender.com/staff/remove_attendance/${staffId}`, {
+				fetch(`https://shop-manager-server.onrender.com/staff/remove_attendance/${staffId}`, {
 					method: 'PATCH',
 					headers: {
 						'Content-Type': 'application/json'

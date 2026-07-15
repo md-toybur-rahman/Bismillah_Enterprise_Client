@@ -70,11 +70,11 @@ const Staffs = () => {
 	const today_only_date_number = parseInt(currentDate.split(' ')[1].split(',')[0]);
 
 	useEffect(() => {
-		fetch(`https://bismillah-enterprise-server.onrender.com/staff_bonus`)
+		fetch(`https://shop-manager-server.onrender.com/staff_bonus`)
 			.then(bonusRes => bonusRes.json())
 			.then(bonusData => {
 				if (bonusData.date !== currentDate) {
-					fetch(`https://bismillah-enterprise-server.onrender.com/staff_bonus`, {
+					fetch(`https://shop-manager-server.onrender.com/staff_bonus`, {
 						method: 'PUT',
 						headers: { 'content-type': 'application/json' },
 						body: JSON.stringify({ entry_type: 'new day', date: currentDate }),
@@ -130,7 +130,7 @@ const Staffs = () => {
 		const previousEarn = parseFloat(staff.total_income || 0);
 		const updatedEarn = parseFloat((previousEarn + today_earned).toFixed(2));
 
-		fetch(`https://bismillah-enterprise-server.onrender.com/staff/uid_query/${uid}`)
+		fetch(`https://shop-manager-server.onrender.com/staff/uid_query/${uid}`)
 			.then(res => res.json())
 			.then(data => {
 				if (data.today_date !== todayOnlyDateIntFormat) {
@@ -156,7 +156,7 @@ const Staffs = () => {
 					};
 
 					// Save to database
-					fetch(`https://bismillah-enterprise-server.onrender.com/submit_work_time/${_id}`, {
+					fetch(`https://shop-manager-server.onrender.com/submit_work_time/${_id}`, {
 						method: 'PUT',
 						headers: {
 							'content-type': 'application/json'
@@ -198,7 +198,7 @@ const Staffs = () => {
 			setLocationLoading(false);
 			return;
 		}
-		fetch('https://bismillah-enterprise-server.onrender.com/shop_location')
+		fetch('https://shop-manager-server.onrender.com/shop_location')
 			.then(res => res.json())
 			.then(currentLocationData => {
 				setCurrentLocation(currentLocationData);
@@ -267,7 +267,7 @@ const Staffs = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				const updatedTime = { name, clickedTime: Time, today_date: today_only_date_number };
-				fetch(`https://bismillah-enterprise-server.onrender.com/staffs_daily_time/${id}`, {
+				fetch(`https://shop-manager-server.onrender.com/staffs_daily_time/${id}`, {
 					method: 'PUT',
 					headers: { 'content-type': 'application/json' },
 					body: JSON.stringify(updatedTime),
@@ -283,7 +283,7 @@ const Staffs = () => {
 						});
 						if (name === 'today_enter1_time') {
 							setWorkSubmitButton(false);
-							fetch(`https://bismillah-enterprise-server.onrender.com/staff_bonus`)
+							fetch(`https://shop-manager-server.onrender.com/staff_bonus`)
 								.then(response => response.json())
 								.then(bonusData => {
 									const parseTime = (timeStr) => {
@@ -295,7 +295,7 @@ const Staffs = () => {
 										return hours * 60 + minutes;
 									};
 									if (!bonusData.first_entry.time && !bonusData.second_entry.time && parseTime(Time) < bonusData?.end_time) {
-										fetch(`https://bismillah-enterprise-server.onrender.com/staff_bonus`, {
+										fetch(`https://shop-manager-server.onrender.com/staff_bonus`, {
 											method: 'PUT',
 											headers: { 'content-type': 'application/json' },
 											body: JSON.stringify({ entry_type: 'first entry', time: Time, uid }),
@@ -312,7 +312,7 @@ const Staffs = () => {
 										})
 									}
 									if (bonusData.first_entry.time && parseTime(Time) - parseTime(bonusData.first_entry.time) < 11 && !bonusData.second_entry.time) {
-										fetch(`https://bismillah-enterprise-server.onrender.com/staff_bonus`, {
+										fetch(`https://shop-manager-server.onrender.com/staff_bonus`, {
 											method: 'PUT',
 											headers: { 'content-type': 'application/json' },
 											body: JSON.stringify({ entry_type: 'second entry', time: Time, uid }),
@@ -358,7 +358,7 @@ const Staffs = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				const requestData = { name, uid };
-				fetch(`https://bismillah-enterprise-server.onrender.com/additional_movement_request`, {
+				fetch(`https://shop-manager-server.onrender.com/additional_movement_request`, {
 					method: 'POST',
 					headers: { 'content-type': 'application/json' },
 					body: JSON.stringify(requestData),
@@ -390,7 +390,7 @@ const Staffs = () => {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				const updatedTime = { name, clickedTime: Time };
-				await fetch(`https://bismillah-enterprise-server.onrender.com/additional_movements/${id}`, {
+				await fetch(`https://shop-manager-server.onrender.com/additional_movements/${id}`, {
 					method: 'PUT',
 					headers: { 'content-type': 'application/json' },
 					body: JSON.stringify(updatedTime),
@@ -423,7 +423,7 @@ const Staffs = () => {
 								additional_movement_hour: updatedAdditionalTotalHours,
 								additional_movement_minute: updatedAdditionalTotalMinutesRemainder,
 							};
-							await fetch(`https://bismillah-enterprise-server.onrender.com/additional_movement_submit/${_id}`, {
+							await fetch(`https://shop-manager-server.onrender.com/additional_movement_submit/${_id}`, {
 								method: 'PUT',
 								headers: {
 									'content-type': 'application/json'
@@ -433,7 +433,7 @@ const Staffs = () => {
 								.then(res => res.json())
 								.then(async (sentDataToStuffProfile) => {
 									if (sentDataToStuffProfile.acknowledged) {
-										await fetch(`https://bismillah-enterprise-server.onrender.com/additional_request_approve/${uid}`, {
+										await fetch(`https://shop-manager-server.onrender.com/additional_request_approve/${uid}`, {
 											method: 'PUT',
 											headers: {
 												'content-type': 'application/json'
@@ -518,7 +518,7 @@ const Staffs = () => {
 				let today_earned = parseFloat((todayDecimal * hour_rate).toFixed(2));
 				let today_bonus = 0;
 				let total_bonus = bonus;
-				await fetch(`https://bismillah-enterprise-server.onrender.com/staff_bonus`)
+				await fetch(`https://shop-manager-server.onrender.com/staff_bonus`)
 					.then(bonusres => bonusres.json())
 					.then(bonusdata => {
 						if (bonusdata.first_entry?.uid === uid && !bonusdata.second_entry.time) {
@@ -573,7 +573,7 @@ const Staffs = () => {
 				};
 
 				// Save to database
-				fetch(`https://bismillah-enterprise-server.onrender.com/submit_work_time/${_id}`, {
+				fetch(`https://shop-manager-server.onrender.com/submit_work_time/${_id}`, {
 					method: 'PUT',
 					headers: {
 						'content-type': 'application/json'
@@ -638,7 +638,7 @@ const Staffs = () => {
 	}
 	const handleChangeTime = (id) => {
 		if (editEnter1Time) {
-			fetch(`https://bismillah-enterprise-server.onrender.com/change_time/${id}`, {
+			fetch(`https://shop-manager-server.onrender.com/change_time/${id}`, {
 				method: 'PUT',
 				headers: {
 					'content-type': 'application/json'
@@ -659,7 +659,7 @@ const Staffs = () => {
 			setIsEnableEdit(false);
 		}
 		if (editExit1Time) {
-			fetch(`https://bismillah-enterprise-server.onrender.com/change_time/${id}`, {
+			fetch(`https://shop-manager-server.onrender.com/change_time/${id}`, {
 				method: 'PUT',
 				headers: {
 					'content-type': 'application/json'
@@ -680,7 +680,7 @@ const Staffs = () => {
 			setIsEnableEdit(false);
 		}
 		if (editEnter2Time) {
-			fetch(`https://bismillah-enterprise-server.onrender.com/change_time/${id}`, {
+			fetch(`https://shop-manager-server.onrender.com/change_time/${id}`, {
 				method: 'PUT',
 				headers: {
 					'content-type': 'application/json'
@@ -701,7 +701,7 @@ const Staffs = () => {
 			setIsEnableEdit(false);
 		}
 		if (editExit2Time) {
-			fetch(`https://bismillah-enterprise-server.onrender.com/change_time/${id}`, {
+			fetch(`https://shop-manager-server.onrender.com/change_time/${id}`, {
 				method: 'PUT',
 				headers: {
 					'content-type': 'application/json'
@@ -793,28 +793,32 @@ const Staffs = () => {
 						<div>
 							<div className="flex items-center gap-5 lg:gap-10 justify-center mt-10 flex-wrap">
 								<button
-									disabled={!isAllowed || currentDayName === 'Friday' || !!today_enter1_time || additional_movement_status}
+									// disabled={!isAllowed || currentDayName === 'Friday' || !!today_enter1_time || additional_movement_status}
+									disabled={!isAllowed || !!today_enter1_time || additional_movement_status}
 									onClick={() => handleTodayTime('today_enter1_time', _id)}
 									className="disabled:cursor-not-allowed disabled:bg-gray-400 disabled:opacity-60 rounded-full h-[70px] lg:h-24 w-[70px] lg:w-24 shadow-md shadow-pink-200 border-none text-pink-200 text-md lg:text-lg cursor-pointer hover:shadow-lg"
 								>
 									Enter 1
 								</button>
 								<button
-									disabled={!isAllowed || currentDayName === 'Friday' || !!today_exit1_time || today_enter1_time === '' || additional_movement_status}
+									// disabled={!isAllowed || currentDayName === 'Friday' || !!today_exit1_time || today_enter1_time === '' || additional_movement_status}
+									disabled={!isAllowed || !!today_exit1_time || today_enter1_time === '' || additional_movement_status}
 									onClick={() => handleTodayTime('today_exit1_time', _id)}
 									className="disabled:cursor-not-allowed disabled:bg-gray-400 disabled:opacity-60 rounded-full h-[70px] lg:h-24 w-[70px] lg:w-24 shadow-md shadow-pink-200 border-none text-pink-200 text-md lg:text-lg cursor-pointer hover:shadow-lg"
 								>
 									Exit 1
 								</button>
 								<button
-									disabled={!isAllowed || currentDayName === 'Friday' || !!today_enter2_time || today_exit1_time === '' || additional_movement_status}
+									// disabled={!isAllowed || currentDayName === 'Friday' || !!today_enter2_time || today_exit1_time === '' || additional_movement_status}
+									disabled={!isAllowed || !!today_enter2_time || today_exit1_time === '' || additional_movement_status}
 									onClick={() => handleTodayTime('today_enter2_time', _id)}
 									className="disabled:cursor-not-allowed disabled:bg-gray-400 disabled:opacity-60 rounded-full h-[70px] lg:h-24 w-[70px] lg:w-24 shadow-md shadow-pink-200 border-none text-pink-200 text-md lg:text-lg cursor-pointer hover:shadow-lg"
 								>
 									Enter 2
 								</button>
 								<button
-									disabled={!isAllowed || currentDayName === 'Friday' || !!today_exit2_time || today_enter2_time === '' || additional_movement_status}
+									// disabled={!isAllowed || currentDayName === 'Friday' || !!today_exit2_time || today_enter2_time === '' || additional_movement_status}
+									disabled={!isAllowed || !!today_exit2_time || today_enter2_time === '' || additional_movement_status}
 									onClick={() => handleTodayTime('today_exit2_time', _id)}
 									className="disabled:cursor-not-allowed disabled:bg-gray-400 disabled:opacity-60 rounded-full h-[70px] lg:h-24 w-[70px] lg:w-24 shadow-md shadow-pink-200 border-none text-pink-200 text-md lg:text-lg cursor-pointer hover:shadow-lg"
 								>

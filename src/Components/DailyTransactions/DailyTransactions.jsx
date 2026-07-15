@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import Loading from '../Shared/Loading/Loading';
 import { MdOutlineCancel } from 'react-icons/md';
 import { PuffLoader } from 'react-spinners';
+import useCurrentUser from '../Hooks/useCurrentUser';
 
 const DailyTransactions = () => {
     const [tab, setTab] = useState('revenue');
@@ -23,6 +24,8 @@ const DailyTransactions = () => {
     const [modalLoading, setModalLoading] = useState(false);
     const [rvCategory, setRvCategory] = useState('');
     const [deleteItem, setDeleteItem] = useState('');
+    const [allTRX, setAllTRX] = useState([]);
+    const [current_User] = useCurrentUser();
 
     const now = new Date();
     const currentDate = now.toLocaleDateString('en-BD', {
@@ -32,13 +35,14 @@ const DailyTransactions = () => {
     });
 
     useEffect(() => {
-        fetch(`https://bismillah-enterprise-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
+        fetch(`https://shop-manager-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
             setComputer(data?.computer_revenues);
             setStationary(data?.stationary_revenues);
             setPhotocopy(data?.photocopy_revenues);
             setOthers(data?.others_revenues?.reduce((sum, item) => sum + item.amount, 0));
             setExpenses(data?.expenses?.reduce((sum, item) => sum + item.amount, 0));
             setAllData(data);
+            setAllTRX(data?.summary);
         })
     }, [reload])
 
@@ -60,12 +64,12 @@ const DailyTransactions = () => {
             setLoading(false)
             return;
         } else {
-            fetch(`https://bismillah-enterprise-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
+            fetch(`https://shop-manager-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
                 const gottedDate = data?.date;
                 if (gottedDate !== currentDate) {
                     if (computer === 0 && stationary === 0 && photocopy === 0 && others === 0 && expenses === 0) {
                         const trData = { date: currentDate, amount: revenue_amount * 1, category: revenue_category, comment: revenue_comment }
-                        fetch(`https://bismillah-enterprise-server.onrender.com/daily_revenue_transactions`, {
+                        fetch(`https://shop-manager-server.onrender.com/daily_revenue_transactions`, {
                             method: 'PATCH',
                             headers: {
                                 'content-type': 'application/json'
@@ -87,7 +91,7 @@ const DailyTransactions = () => {
                         })
                     } else {
                         const transaction_summary = { update_info: { update_date: currentDate, amount: revenue_amount * 1, category: revenue_category, comment: revenue_comment }, category: revenue_category, date: gottedDate, computer_revenues: data?.computer_revenues, stationary_revenues: data?.stationary_revenues, photocopy_revenues: data?.photocopy_revenues, others_revenues: { amounts: data?.others_revenues?.map(item => item.amount) || [], descriptions: data?.others_revenues?.map(item => item.comment) || [] }, expenses: { amounts: data?.expenses?.map(item => item.amount) || [], descriptions: data?.expenses?.map(item => item.comment) || [] } }
-                        fetch(`https://bismillah-enterprise-server.onrender.com/reset_daily_transactions`, {
+                        fetch(`https://shop-manager-server.onrender.com/reset_daily_transactions`, {
                             method: 'PATCH',
                             headers: {
                                 'content-type': 'application/json'
@@ -102,6 +106,7 @@ const DailyTransactions = () => {
                                 timer: 1000
                             })
                             setRvAmount('');
+                            setRvCategory('');
                             revenueCategoryRef.current.value = '';
                             revenueCommentRef.current.value = '';
                             setLoading(false)
@@ -111,7 +116,7 @@ const DailyTransactions = () => {
 
                 } else {
                     const trData = { date: currentDate, amount: revenue_amount * 1, category: revenue_category, comment: revenue_comment }
-                    fetch(`https://bismillah-enterprise-server.onrender.com/daily_revenue_transactions`, {
+                    fetch(`https://shop-manager-server.onrender.com/daily_revenue_transactions`, {
                         method: 'PATCH',
                         headers: {
                             'content-type': 'application/json'
@@ -151,12 +156,12 @@ const DailyTransactions = () => {
             setLoading(false)
             return;
         } else {
-            fetch(`https://bismillah-enterprise-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
+            fetch(`https://shop-manager-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
                 const gottedDate = data?.date;
                 if (gottedDate !== currentDate) {
                     if (computer === 0 && stationary === 0 && photocopy === 0 && others === 0 && expenses === 0) {
                         const trData = { date: currentDate, amount: expense_amount * 1, comment: expense_comment }
-                        fetch(`https://bismillah-enterprise-server.onrender.com/daily_expense_transactions`, {
+                        fetch(`https://shop-manager-server.onrender.com/daily_expense_transactions`, {
                             method: 'PATCH',
                             headers: {
                                 'content-type': 'application/json'
@@ -177,7 +182,7 @@ const DailyTransactions = () => {
                         })
                     } else {
                         const expense_summary = { update_info: { update_date: currentDate, amount: expense_amount * 1, comment: expense_comment }, category: 'Expense', date: gottedDate, computer_revenues: data?.computer_revenues, stationary_revenues: data?.stationary_revenues, photocopy_revenues: data?.photocopy_revenues, others_revenues: { amounts: data?.others_revenues?.map(item => item.amount) || [], descriptions: data?.others_revenues?.map(item => item.comment) || [] }, expenses: { amounts: data?.expenses?.map(item => item.amount) || [], descriptions: data?.expenses?.map(item => item.comment) || [] } }
-                        fetch(`https://bismillah-enterprise-server.onrender.com/reset_daily_transactions`, {
+                        fetch(`https://shop-manager-server.onrender.com/reset_daily_transactions`, {
                             method: 'PATCH',
                             headers: {
                                 'content-type': 'application/json'
@@ -200,7 +205,7 @@ const DailyTransactions = () => {
 
                 } else {
                     const trData = { date: currentDate, amount: expense_amount * 1, comment: expense_comment }
-                    fetch(`https://bismillah-enterprise-server.onrender.com/daily_expense_transactions`, {
+                    fetch(`https://shop-manager-server.onrender.com/daily_expense_transactions`, {
                         method: 'PATCH',
                         headers: {
                             'content-type': 'application/json'
@@ -242,7 +247,7 @@ const DailyTransactions = () => {
 
             if (result.isConfirmed) {
 
-                fetch('https://bismillah-enterprise-server.onrender.com/update_expenses', {
+                fetch('https://shop-manager-server.onrender.com/update_expenses', {
                     method: "PATCH",
                     headers: {
                         'content-type': 'application/json'
@@ -269,6 +274,44 @@ const DailyTransactions = () => {
             }
         });
     }
+
+
+    const totalComputer =
+        (allTRX?.reduce((sum, item) => sum + (item?.computer_revenues || 0), 0) || 0) +
+        (allData?.computer_revenues || 0);
+
+    const totalStationary =
+        (allTRX?.reduce((sum, item) => sum + (item?.stationary_revenues || 0), 0) || 0) +
+        (allData?.stationary_revenues || 0);
+
+    const totalPhotocopy =
+        (allTRX?.reduce((sum, item) => sum + (item?.photocopy_revenues || 0), 0) || 0) +
+        (allData?.photocopy_revenues || 0);
+
+    const totalOthers =
+        (allTRX?.reduce(
+            (sum, item) =>
+                sum +
+                ((item?.others_revenues?.amounts || []).reduce((s, i) => s + i, 0)),
+            0
+        ) || 0) +
+        ((allData?.others_revenues || []).reduce((sum, i) => sum + (i?.amount || 0), 0));
+
+    const totalExpenses =
+        (allTRX?.reduce(
+            (sum, item) =>
+                sum +
+                ((item?.expenses?.amounts || []).reduce((s, i) => s + i, 0)),
+            0
+        ) || 0) +
+        ((allData?.expenses || []).reduce((sum, i) => sum + (i?.amount || 0), 0));
+
+    const totalCash =
+        totalComputer +
+        totalStationary +
+        totalPhotocopy +
+        totalOthers -
+        totalExpenses;
 
     const revenueCategoryRef = useRef();
     const expenseCommentRef = useRef();
@@ -332,8 +375,10 @@ const DailyTransactions = () => {
                     Expenses
                 </button>
             </div>
-
-            <div className={`${tab === 'revenue' ? '' : 'hidden'} text-pink-200 mt-5 md:mt-[100px] w-full flex flex-col items-center justify-center px-5`}>
+            <div className='mt-5 md:mt-[100px]'>
+                <h1 className={`text-center text-lg md:text-xl font-bold ${totalCash < 0 ? 'text-red-500' : 'text-green-500'} ${current_User?.email === 'bismillah786e@gmail.com' || 'robiulislam505258@gmail.com' || 'toyburrahman48@gmail.com' ? 'block' : 'hidden'}`}>Last Day C: <span>{totalCash}</span></h1>
+            </div>
+            <div className={`${tab === 'revenue' ? '' : 'hidden'} text-pink-200 w-full flex flex-col items-center justify-center px-5`}>
                 <h1 className='text-center mt-3 font-semibold text-lg md:text-2xl mb-2'>Date: {currentDate}</h1>
                 <h1 className='text-center font-semibold text-md md:text-xl mb-5'>Computer: <span className='text-green-500'>{computer} Taka</span> , Stationary: <span className='text-green-500'>{stationary} Taka</span>, Photocopy: <span className='text-green-500'>{photocopy} Taka</span>, Others: <span onClick={() => { setDetails(allData?.others_revenues); setDeleteItem('others_revenues'); setModal(!modal) }} className='text-green-500 cursor-pointer underline'>{others} Taka</span></h1>
                 <div className='max-w-full min-w-full md:min-w-[400px] h-fit border-2 rounded-2xl'>

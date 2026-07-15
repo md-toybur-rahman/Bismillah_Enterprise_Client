@@ -37,7 +37,7 @@ const CreateNewClient = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/new_client`, {
+                fetch(`https://shop-manager-server.onrender.com/new_client`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

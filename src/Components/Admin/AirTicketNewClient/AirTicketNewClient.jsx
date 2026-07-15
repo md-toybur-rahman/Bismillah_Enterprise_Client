@@ -41,7 +41,7 @@ const AirTicketNewClient = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/air_ticket_new_client`, {
+                fetch(`https://shop-manager-server.onrender.com/air_ticket_new_client`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

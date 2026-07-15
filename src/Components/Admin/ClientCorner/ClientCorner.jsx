@@ -20,7 +20,7 @@ const ClientCorner = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/client/${id}`, {
+                fetch(`https://shop-manager-server.onrender.com/client/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

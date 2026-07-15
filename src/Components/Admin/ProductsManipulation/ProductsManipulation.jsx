@@ -12,14 +12,14 @@ const ProductsManipulation = () => {
     const [modal, setModal] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
-        fetch(`https://bismillah-enterprise-server.onrender.com/products`)
+        fetch(`https://shop-manager-server.onrender.com/products`)
             .then(res => res.json())
             .then(data => {
                 setAllProducts(data);
             })
     }, [])
     useEffect(() => {
-        fetch(`https://bismillah-enterprise-server.onrender.com/products`)
+        fetch(`https://shop-manager-server.onrender.com/products`)
             .then(res => res.json())
             .then(data => {
                 setAllProducts(data);
@@ -37,7 +37,7 @@ const ProductsManipulation = () => {
             confirmButtonText: "Yes, Delete It!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/products/${id}`, {
+                fetch(`https://shop-manager-server.onrender.com/products/${id}`, {
                     method: 'DELETE'
                 }).then(res => res.json())
                 setModal(false);
@@ -75,7 +75,7 @@ const ProductsManipulation = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/products`, {
+                fetch(`https://shop-manager-server.onrender.com/products`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

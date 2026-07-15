@@ -122,7 +122,7 @@ const Voucher = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/edit_voucher/${client._id}`, {
+                fetch(`https://shop-manager-server.onrender.com/edit_voucher/${client._id}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(voucher)
@@ -241,7 +241,7 @@ const Voucher = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/take_payment/${id}`, {
+                fetch(`https://shop-manager-server.onrender.com/take_payment/${id}`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'

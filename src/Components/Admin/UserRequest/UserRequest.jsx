@@ -10,7 +10,7 @@ const UserRequest = () => {
 	const userRequest = useLoaderData();
 	const [allStaffs, setAllStaffs] = useState([]);
 	useEffect(() => {
-		fetch(`https://bismillah-enterprise-server.onrender.com/staffs`)
+		fetch(`https://shop-manager-server.onrender.com/staffs`)
 			.then(res => res.json())
 			.then(data => {
 				setAllStaffs(data);
@@ -73,7 +73,7 @@ const UserRequest = () => {
 			confirmButtonText: "Yes, I am Sure"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				fetch(`https://bismillah-enterprise-server.onrender.com/replace_staff/${old_id}`, {
+				fetch(`https://shop-manager-server.onrender.com/replace_staff/${old_id}`, {
 					method: 'PUT',
 					headers: {
 						'content-type': 'application/json'
@@ -91,7 +91,7 @@ const UserRequest = () => {
 						return text ? JSON.parse(text) : null;
 					})
 					.then(() => {
-						fetch(`https://bismillah-enterprise-server.onrender.com/user_request/${id}`, {
+						fetch(`https://shop-manager-server.onrender.com/user_request/${id}`, {
 							method: 'DELETE'
 						})
 							.then(() => {
@@ -146,7 +146,7 @@ const UserRequest = () => {
 			uid
 		};
 
-		fetch('https://bismillah-enterprise-server.onrender.com/staff', {
+		fetch('https://shop-manager-server.onrender.com/staff', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json'
@@ -164,7 +164,7 @@ const UserRequest = () => {
 				return text ? JSON.parse(text) : null;
 			})
 			.then(() => {
-				fetch(`https://bismillah-enterprise-server.onrender.com/user_request/${id}`, {
+				fetch(`https://shop-manager-server.onrender.com/user_request/${id}`, {
 					method: 'DELETE'
 				})
 					.then(() => {
@@ -198,7 +198,7 @@ const UserRequest = () => {
 			confirmButtonText: "Yes, reject it!"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				fetch(`https://bismillah-enterprise-server.onrender.com/user_request/${id}`, {
+				fetch(`https://shop-manager-server.onrender.com/user_request/${id}`, {
 					method: 'DELETE'
 				}).then(res => res.json())
 				Swal.fire({

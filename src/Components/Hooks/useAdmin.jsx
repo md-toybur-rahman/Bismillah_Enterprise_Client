@@ -8,7 +8,7 @@ const useAdmin = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
         const checkAdmin = async () => {
-            await fetch(`https://bismillah-enterprise-server.onrender.com/staff/uid_query/${user?.uid}`).then(res => res.json()).then(gotData => {
+            await fetch(`https://shop-manager-server.onrender.com/staff/uid_query/${user?.uid}`).then(res => res.json()).then(gotData => {
                 if (gotData?.user_category !== 'admin') {
                     setIsAdmin(false);
                     setIsAdminLoading(false)

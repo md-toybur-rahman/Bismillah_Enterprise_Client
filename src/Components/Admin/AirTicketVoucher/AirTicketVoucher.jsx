@@ -131,7 +131,7 @@ const AirTicketVoucher = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/air_ticket_take_payment/${id}`, {
+                fetch(`https://shop-manager-server.onrender.com/air_ticket_take_payment/${id}`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'

@@ -48,7 +48,7 @@ const ShopTransections = () => {
 			confirmButtonText: "Yes, I am Sure"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				fetch(`https://bismillah-enterprise-server.onrender.com/shop_transections`, {
+				fetch(`https://shop-manager-server.onrender.com/shop_transections`, {
 					method: 'PUT',
 					headers: {
 						'content-type': 'application/json'
@@ -98,7 +98,7 @@ const ShopTransections = () => {
 			confirmButtonText: "Yes, I am Sure"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				fetch(`https://bismillah-enterprise-server.onrender.com/shop_transections`, {
+				fetch(`https://shop-manager-server.onrender.com/shop_transections`, {
 					method: 'PUT',
 					headers: {
 						'content-type': 'application/json'
@@ -146,7 +146,7 @@ const ShopTransections = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				const closing_month_details = { month_name, hand_on_cash, total_expense_amount, total_revenue_amount };
-				fetch(`https://bismillah-enterprise-server.onrender.com/shop_transections_closing_month`, {
+				fetch(`https://shop-manager-server.onrender.com/shop_transections_closing_month`, {
 					method: 'POST',
 					headers: {
 						'content-type': 'application/json'
@@ -182,7 +182,7 @@ const ShopTransections = () => {
 			if (result.isConfirmed) {
 				const newMonthName = currentDate.split(' ')[0];
 				const newData = { month_name: newMonthName }
-				fetch(`https://bismillah-enterprise-server.onrender.com/start_new_month`, {
+				fetch(`https://shop-manager-server.onrender.com/start_new_month`, {
 					method: 'PUT',
 					headers: {
 						'content-type': 'application/json'

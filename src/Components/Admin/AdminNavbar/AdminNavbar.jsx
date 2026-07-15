@@ -78,7 +78,7 @@ const AdminNavbar = () => {
 					<Link to={`/staff/uid_query/${current_User?.uid}`} state={{ pathname: location.pathname }} className={`px-3 w-full ${isMenu ? 'shadow-md' : 'shadow-none'} hover:shadow-pink-400 rounded-t-2xl shadow-pink-300 py-3 font-semibold text-center cursor-pointer`}>
 						Attendence Page
 					</Link>
-					<Link to={`/admin/daily_transactions`} state={{ pathname: location.pathname }} className={`${current_User?.email === 'bismillah786e@gmail.com' ? 'block' : 'hidden'} ${location.pathname.includes('/air_ticket_client_corner') ? 'text-pink-400' : 'text-pink-200'} w-full shadow-md hover:shadow-pink-400 rounded-t-2xl shadow-pink-300 py-3 font-semibold text-center cursor-pointer`}>
+					<Link to={`/admin/daily_transactions`} state={{ pathname: location.pathname }} className={`${current_User?.email === 'bismillah786e@gmail.com' || current_User?.email === 'toyburrahman48@gmail.com' ? 'block' : 'hidden'} ${location.pathname.includes('/air_ticket_client_corner') ? 'text-pink-400' : 'text-pink-200'} w-full shadow-md hover:shadow-pink-400 rounded-t-2xl shadow-pink-300 py-3 font-semibold text-center cursor-pointer`}>
 						Daily Transactions
 					</Link>
 					<Link to={`/admin/products_manipulation`} state={{ pathname: location.pathname }} className={`px-3 w-full ${isMenu ? 'shadow-md' : 'shadow-none'} hover:shadow-pink-400 rounded-t-2xl shadow-pink-300 py-3 font-semibold text-center cursor-pointer`}>

@@ -5,7 +5,7 @@ const useShopCode = () => {
 	const { user } = useContext(AuthContext)
 	const [shopCode, setShopCode] = useState();
 	useEffect(() => {
-		fetch(`https://bismillah-enterprise-server.onrender.com/shop_code`)
+		fetch(`https://shop-manager-server.onrender.com/shop_code`)
 			.then(res => res.json())
 			.then(data => {
 				setShopCode(data.shop_code)

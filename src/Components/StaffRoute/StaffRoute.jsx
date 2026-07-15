@@ -14,7 +14,7 @@ const StaffRoute = ({children}) => {
 	useEffect(() => {
 		setLoading(true);
 		setStaffLoading(true);
-		fetch(`https://bismillah-enterprise-server.onrender.com/staff/uid_query/${user?.uid}`).then(res => res.json()).then(gotData => {
+		fetch(`https://shop-manager-server.onrender.com/staff/uid_query/${user?.uid}`).then(res => res.json()).then(gotData => {
 			if(gotData) {
 				setSiteUser(gotData);
 				setStaffLoading(false);

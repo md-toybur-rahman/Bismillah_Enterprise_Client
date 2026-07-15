@@ -44,7 +44,7 @@ const SelfTransections = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/self_transections`, {
+                fetch(`https://shop-manager-server.onrender.com/self_transections`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
@@ -93,7 +93,7 @@ const SelfTransections = () => {
             confirmButtonText: "Yes, I am Sure"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/self_transections`, {
+                fetch(`https://shop-manager-server.onrender.com/self_transections`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
@@ -140,7 +140,7 @@ const SelfTransections = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 const closing_month_details = { month_name, hand_on_cash, total_expense_amount, total_revenue_amount };
-                fetch(`https://bismillah-enterprise-server.onrender.com/self_transections_closing_month`, {
+                fetch(`https://shop-manager-server.onrender.com/self_transections_closing_month`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -176,7 +176,7 @@ const SelfTransections = () => {
             if (result.isConfirmed) {
                 const newMonthName = currentDate.split(' ')[0];
                 const newData = { month_name: newMonthName }
-                fetch(`https://bismillah-enterprise-server.onrender.com/self_start_new_month`, {
+                fetch(`https://shop-manager-server.onrender.com/self_start_new_month`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'

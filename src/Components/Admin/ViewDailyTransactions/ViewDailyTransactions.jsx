@@ -20,7 +20,7 @@ const ViewDailyTransactions = () => {
 
 
     useEffect(() => {
-        fetch(`https://bismillah-enterprise-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
+        fetch(`https://shop-manager-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
             setLoadedTransactions(data);
             setAllTRX(data?.summary);
             setExpenses(data?.expenses?.reduce((sum, item) => sum + item.amount, 0));
@@ -97,13 +97,13 @@ const ViewDailyTransactions = () => {
             confirmButtonText: "Yes, Close it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bismillah-enterprise-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
+                fetch(`https://shop-manager-server.onrender.com/daily_transactions`).then(res => res.json()).then((data) => {
                     const gottedDate = data?.date;
                     const expense_descriptions = data?.expenses.map(item => item?.comment) || [];
                     const expenses = data?.expenses?.reduce((sum, item) => sum + item.amount, 0) || 0;
                     // const expense_summary = { date: gottedDate, computer_revenues: data?.computer_revenues, stationary_revenues: data?.stationary_revenues, photocopy_revenues: data?.photocopy_revenues, others_revenues: data?.others_revenues, expenses, expense_descriptions }
                     const expense_summary = { date: gottedDate, computer_revenues: data?.computer_revenues, stationary_revenues: data?.stationary_revenues, photocopy_revenues: data?.photocopy_revenues, others_revenues: { amounts: data?.others_revenues?.map(item => item.amount) || [], descriptions: data?.others_revenues?.map(item => item.comment) || [] }, expenses: { amounts: data?.expenses?.map(item => item.amount) || [], descriptions: data?.expenses?.map(item => item.comment) || [] } }
-                    fetch(`https://bismillah-enterprise-server.onrender.com/close_daily_transactions`, {
+                    fetch(`https://shop-manager-server.onrender.com/close_daily_transactions`, {
                         method: 'PATCH',
                         headers: {
                             'content-type': 'application/json'
@@ -143,7 +143,7 @@ const ViewDailyTransactions = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 setLoading(true);
-                fetch("https://bismillah-enterprise-server.onrender.com/delete_summary", {
+                fetch("https://shop-manager-server.onrender.com/delete_summary", {
                     method: "PATCH",
                     headers: {
                         "content-type": "application/json"

@@ -18,7 +18,7 @@ const SetShopCode = () => {
 		const shop_code = new_shop_code.value;
 		const newShopCode = { shop_code };
 		const _id = import.meta.env.VITE_shop_code_object_id;
-		fetch(`https://bismillah-enterprise-server.onrender.com/shop_code`, {
+		fetch(`https://shop-manager-server.onrender.com/shop_code`, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json'
